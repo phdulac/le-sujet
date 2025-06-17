@@ -1,0 +1,57 @@
+{
+	"console.log": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+	 	"prefix": "cc",
+	 	"body": [
+	 		"console.log(${1})",
+	 	],
+	 	"description": "console.log"
+	},
+	 "useState": {
+	 	"scope": "javascript,typescript,javascriptreact,typescriptreact",
+	 	"prefix": "rus",
+	 	"body": [
+	 		"const [${1}, set${2}] = useState(${3})",
+	 	],
+	 	"description": "useState"
+	 },
+	 "useEffect": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "rue",
+		"body": [
+			"useEffect(() => {${1}}, [${2}])",
+		],
+		"description": "useEffect"
+	},
+	"useCallback": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "ruc",
+		"body": [
+			"useCallback((${1}) => {${2}}, [${3}])",
+		],
+		"description": "useCallback"
+	},
+	"useMemo": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "rum",
+		"body": [
+			"useMemo(() => {${1}}, [${2}])",
+		],
+		"description": "useMemo"
+	},
+	"component": {
+		"scope": "javascriptreact,typescriptreact",
+		"prefix": "comp",
+		"body": [
+			"const ${1} = () => {",
+				"const [${3}, set${4}] = useState(${5})",
+				"return <></>",
+			 "}",
+			 "export default ${1}",
+		],
+		"description": "React function component"
+	},
+
+
+
+}

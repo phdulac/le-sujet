@@ -1,0 +1,46 @@
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - release-please--branches**
+  push:
+    branches:
+      - develop
+      - betam8-develop
+      - m9-staging
+      - main
+      - release-please--branches**
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: npm
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
+      - name: 📦 Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+
+      # Create a new update if there are no changes in the package.json or package-lock.json
+      - name: ✨ Create update
+        env:
+          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+        run: export GIT_COMMIT_HASH=$(git rev-parse HEAD) && eas update --auto --platform all --non-interactive
+ 

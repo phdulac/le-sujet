@@ -3,9 +3,9 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { RouteProp } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
-import '../global.css';
+import { withExpoSnack } from 'nativewind';
 
-export default function Layout() {
+function Layout() {
   const colorScheme = useColorScheme();
 
   return (
@@ -38,4 +38,6 @@ export default function Layout() {
       </Stack>
     </>
   );
-} 
+}
+
+export default withExpoSnack(Layout); 
