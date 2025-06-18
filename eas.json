@@ -1,23 +1,5 @@
 {
   "build": {
-    "test": {
-      "channel": "test",
-      "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "gradleCommand": ":app:assembleRelease :app:assembleAndroidTest -DtestBuildType=release",
-        "withoutCredentials": true
-      },
-      "ios": {
-        "buildConfiguration": "Release",
-        "simulator": true
-      },
-      "buildArtifactPaths": ["./artifacts/**/*.png"],
-      "env": {
-        "APP_NAME": "le-sujet-test",
-        "BUNDLE_ID": "com.le-sujet.test"
-      }
-    },
     "develop": {
       "channel": "develop",
       "developmentClient": true,
