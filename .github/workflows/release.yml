@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - m9-staging
+      - main
 permissions:
   contents: write
   pull-requests: write
@@ -16,5 +16,5 @@ jobs:
         with:
           release-type: expo
           package-name: release-please-action
-          default-branch: m9-staging
+          default-branch: main
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false},{"type":"style","section":"Styles","hidden":false},{"type":"refactor","section":"Refactoring","hidden":false},{"type":"doc","section":"Documentation","hidden":false},{"type":"build","section":"Miscellaneous","hidden":false}]'

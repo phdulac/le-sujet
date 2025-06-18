@@ -7,10 +7,6 @@ on:
   push:
     branches:
       - develop
-      - betam8-develop
-      - m9-staging
-      - main
-      - release-please--branches**
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -39,8 +35,5 @@ jobs:
 
       # Create a new update if there are no changes in the package.json or package-lock.json
       - name: ✨ Create update
-        env:
-          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
-          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-        run: export GIT_COMMIT_HASH=$(git rev-parse HEAD) && eas update --auto --platform all --non-interactive
+        run: eas update --auto --platform all --non-interactive
  
