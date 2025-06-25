@@ -17,7 +17,9 @@ function TabLayout() {
           backgroundColor: colorScheme === 'dark' ? '#1C1C1E' : '#FFFFFF',
           borderTopColor: colorScheme === 'dark' ? '#38383A' : '#C6C6C8',
           paddingBottom: 28,
-          paddingTop: 8,
+          paddingTop: 10,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         },
         tabBarLabelStyle: {
           fontSize: 12,

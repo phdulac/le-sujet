@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { topics, Topic, Tag } from '../../data/topics';
 
@@ -7,15 +7,33 @@ const tabs = ['Feeds', 'Popular', 'Following'];
 
 const TabsBar = ({ selected, onSelect }: { selected: string; onSelect: (tab: string) => void }) => (
   <View
-    className="flex-row justify-center self-center bg-gray-100 px-2 py-2 mt-2 rounded-full"
-    style={{ gap: 8 }}>
+    style={{
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      backgroundColor: '#f3f4f6',
+      paddingHorizontal: 8,
+      paddingVertical: 8,
+      marginTop: 8,
+      borderRadius: 25,
+      gap: 8,
+    }}>
     {tabs.map((tab) => (
       <TouchableOpacity
         key={tab}
         onPress={() => onSelect(tab)}
-        className={`px-5 py-2 rounded-full ${selected === tab ? 'bg-black' : 'bg-gray-100'}`}
-        style={{ marginHorizontal: 4 }}>
-        <Text className={`font-semibold ${selected === tab ? 'text-white' : 'text-gray-700'}`}>
+        style={{
+          paddingHorizontal: 20,
+          paddingVertical: 8,
+          borderRadius: 25,
+          backgroundColor: selected === tab ? '#000' : '#f3f4f6',
+          marginHorizontal: 4,
+        }}>
+        <Text
+          style={{
+            fontWeight: '600',
+            color: selected === tab ? '#fff' : '#374151',
+          }}>
           {tab}
         </Text>
       </TouchableOpacity>
@@ -26,27 +44,47 @@ const TabsBar = ({ selected, onSelect }: { selected: string; onSelect: (tab: str
 const FeaturedCard = ({ topic }: { topic: Topic }) => (
   <Link href={`/topic/${topic.id}?title=${encodeURIComponent(topic.title)}`} asChild>
     <TouchableOpacity
-      className="bg-white rounded-3xl shadow-lg mb-6 overflow-hidden"
-      style={{ width: '100%', marginTop: 16 }}>
-      <Image source={{ uri: topic.imageUrl }} className="w-full h-44" resizeMode="cover" />
-      <View className="p-4">
-        <View className="flex-row mb-2" style={{ gap: 6 }}>
+      style={{
+        backgroundColor: 'white',
+        borderRadius: 24,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 3,
+        marginBottom: 24,
+        marginTop: 16,
+        overflow: 'hidden',
+      }}>
+      <Image
+        source={{ uri: topic.imageUrl }}
+        style={{ width: '100%', height: 176 }}
+        resizeMode="cover"
+      />
+      <View style={{ padding: 16 }}>
+        <View style={{ flexDirection: 'row', marginBottom: 8, gap: 6 }}>
           {topic.tags.map((tag: Tag) => (
             <View
               key={tag.id}
-              className="px-2 py-0.5 rounded-full"
-              style={{ backgroundColor: tag.color + '18' }}>
-              <Text className="text-xs font-medium" style={{ color: tag.color }}>
-                {tag.name}
-              </Text>
+              style={{
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 12,
+                backgroundColor: tag.color + '18',
+              }}>
+              <Text style={{ fontSize: 12, fontWeight: '500', color: tag.color }}>{tag.name}</Text>
             </View>
           ))}
         </View>
-        <Text className="text-xl font-bold mb-1 text-gray-900">{topic.title}</Text>
-        <View className="flex-row items-center mb-1">
-          <Text className="text-black font-semibold text-sm mr-2">Life At</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 4, color: '#111827' }}>
+          {topic.title}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+          <Text style={{ color: '#000', fontWeight: '600', fontSize: 14, marginRight: 8 }}>
+            Life At
+          </Text>
         </View>
-        <Text className="text-gray-600 text-base" numberOfLines={2}>
+        <Text style={{ color: '#6b7280', fontSize: 16 }} numberOfLines={2}>
           {topic.description}
         </Text>
       </View>
@@ -56,63 +94,93 @@ const FeaturedCard = ({ topic }: { topic: Topic }) => (
 
 const ArticleItem = ({ topic }: { topic: Topic }) => (
   <Link href={`/topic/${topic.id}?title=${encodeURIComponent(topic.title)}`} asChild>
-    <TouchableOpacity className="flex-row items-center bg-white rounded-xl mb-3 p-3">
+    <TouchableOpacity
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        borderRadius: 12,
+        marginBottom: 12,
+        padding: 12,
+      }}>
       <Image
         source={{ uri: topic.imageUrl }}
-        className="w-16 h-16 rounded-lg mr-3"
+        style={{ width: 64, height: 64, borderRadius: 8, marginRight: 12 }}
         resizeMode="cover"
       />
-      <View className="flex-1">
-        <Text className="font-semibold text-base mb-1" numberOfLines={2}>
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontWeight: '600', fontSize: 16, marginBottom: 4 }} numberOfLines={2}>
           {topic.title}
         </Text>
-        <View className="flex-row items-center mb-1">
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
           {topic.tags[0] && (
-            <Text className="text-xs text-gray-500 mr-2">{topic.tags[0].name}</Text>
+            <Text style={{ fontSize: 12, color: '#6b7280', marginRight: 8 }}>
+              {topic.tags[0].name}
+            </Text>
           )}
-          <Text className="text-xs text-gray-400">• {topic.date}</Text>
+          <Text style={{ fontSize: 12, color: '#9ca3af' }}>• {topic.date}</Text>
         </View>
-        <View className="flex-row items-center">
-          <Text className="text-xs text-gray-400 mr-2">{topic.views} vues</Text>
-          <Text className="text-xs text-gray-400">• 4 min</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={{ fontSize: 12, color: '#9ca3af', marginRight: 8 }}>{topic.views} vues</Text>
+          <Text style={{ fontSize: 12, color: '#9ca3af' }}>• 4 min</Text>
         </View>
       </View>
     </TouchableOpacity>
   </Link>
 );
 
-const CARD_MARGIN = 8;
-
 const TopicCard = ({ topic }: { topic: Topic }) => (
   <Link href={`/topic/${topic.id}?title=${encodeURIComponent(topic.title)}`} asChild>
     <TouchableOpacity
-      className="bg-white rounded-2xl shadow-md overflow-hidden mb-4"
       style={{
-        width: (Dimensions.get('window').width - 48) / 2,
-        marginBottom: CARD_MARGIN,
-        marginRight: CARD_MARGIN,
+        backgroundColor: 'white',
+        borderRadius: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+        overflow: 'hidden',
+        marginBottom: 16,
+        width: '48%',
       }}>
-      <Image source={{ uri: topic.imageUrl }} className="w-full h-32" resizeMode="cover" />
-      <View className="p-3">
-        <Text className="text-lg font-bold mb-1 text-gray-900">{topic.title}</Text>
-        <Text className="text-gray-600 text-sm" numberOfLines={2}>
+      <Image
+        source={{ uri: topic.imageUrl }}
+        style={{ width: '100%', height: 128 }}
+        resizeMode="cover"
+      />
+      <View style={{ padding: 12 }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, color: '#111827' }}>
+          {topic.title}
+        </Text>
+        <Text style={{ color: '#6b7280', fontSize: 14 }} numberOfLines={2}>
           {topic.description}
         </Text>
-        <View className="flex-row flex-wrap mt-2" style={{ gap: 4 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 8, gap: 4 }}>
           {topic.tags.map((tag: Tag) => (
             <View
               key={tag.id}
-              className="px-2 py-0.5 rounded-full mr-1 mb-1"
-              style={{ backgroundColor: tag.color + '18' }}>
-              <Text className="text-xs" style={{ color: tag.color }}>
-                {tag.name}
-              </Text>
+              style={{
+                paddingHorizontal: 8,
+                paddingVertical: 2,
+                borderRadius: 12,
+                marginRight: 4,
+                marginBottom: 4,
+                backgroundColor: tag.color + '18',
+              }}>
+              <Text style={{ fontSize: 12, color: tag.color }}>{tag.name}</Text>
             </View>
           ))}
         </View>
-        <View className="flex-row justify-between items-center mt-2">
-          <Text className="text-gray-400 text-xs">{topic.date}</Text>
-          <Text className="text-gray-400 text-xs">{topic.views} vues</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 8,
+          }}>
+          <Text style={{ color: '#9ca3af', fontSize: 12 }}>{topic.date}</Text>
+          <Text style={{ color: '#9ca3af', fontSize: 12 }}>{topic.views} vues</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -123,31 +191,45 @@ export default function Home() {
   const [selectedTab, setSelectedTab] = useState('Feeds');
   const featured = topics[0];
   const rest = topics.slice(1);
-  const justForYou = rest.slice(0, 3); // 3 articles pour l'exemple
+  const justForYou = rest.slice(0, 3);
+
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: '#f9fafb' }}>
       <TabsBar selected={selectedTab} onSelect={setSelectedTab} />
-      <ScrollView className="flex-1 px-4" contentContainerStyle={{ paddingBottom: 24 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 24 }}
+        showsVerticalScrollIndicator={false}>
         <FeaturedCard topic={featured} />
+
         {/* Section Just For You */}
-        <View className="flex-row justify-between items-center mb-2 mt-2">
-          <Text className="text-lg font-bold">Just For You</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 8,
+            marginTop: 8,
+          }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Just For You</Text>
           <TouchableOpacity>
-            <Text className="text-blue-500 font-semibold text-sm">See More</Text>
+            <Text style={{ color: '#3b82f6', fontWeight: '600', fontSize: 14 }}>See More</Text>
           </TouchableOpacity>
         </View>
-        <View className="mb-6">
+
+        <View style={{ marginBottom: 24 }}>
           {justForYou.map((topic) => (
             <ArticleItem key={topic.id} topic={topic} />
           ))}
         </View>
+
         {/* Grille des autres topics */}
-        <View className="flex-row flex-wrap justify-between">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
           {rest.slice(3).map((topic) => (
             <TopicCard key={topic.id} topic={topic} />
           ))}
         </View>
       </ScrollView>
-    </>
+    </View>
   );
 }

@@ -4,26 +4,34 @@ import { useLocalSearchParams } from 'expo-router';
 import { topics, Topic, Opinion } from '../../data/topics';
 
 const OpinionCard = ({ opinion }: { opinion: Opinion }) => (
-  <View className="bg-white rounded-lg p-4 mb-4">
-    <Text className="text-lg font-semibold mb-2">{opinion.title}</Text>
-    <Text className="text-gray-600 mb-3">{opinion.description}</Text>
+  <View
+    style={{
+      backgroundColor: 'white',
+      borderRadius: 8,
+      padding: 16,
+      marginBottom: 16,
+    }}>
+    <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 8 }}>{opinion.title}</Text>
+    <Text style={{ color: '#6b7280', marginBottom: 12 }}>{opinion.description}</Text>
 
-    <View className="space-y-2">
-      <View className="flex-row">
-        <Text className="text-gray-500 text-sm w-20">Source:</Text>
-        <Text className="text-gray-700 text-sm flex-1">{opinion.source}</Text>
+    <View style={{ gap: 8 }}>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ color: '#6b7280', fontSize: 14, width: 80 }}>Source:</Text>
+        <Text style={{ color: '#374151', fontSize: 14, flex: 1 }}>{opinion.source}</Text>
       </View>
-      <View className="flex-row">
-        <Text className="text-gray-500 text-sm w-20">Orientation:</Text>
-        <Text className="text-gray-700 text-sm flex-1">{opinion.politicalOrientation}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ color: '#6b7280', fontSize: 14, width: 80 }}>Orientation:</Text>
+        <Text style={{ color: '#374151', fontSize: 14, flex: 1 }}>
+          {opinion.politicalOrientation}
+        </Text>
       </View>
-      <View className="flex-row">
-        <Text className="text-gray-500 text-sm w-20">École:</Text>
-        <Text className="text-gray-700 text-sm flex-1">{opinion.schoolOfThought}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ color: '#6b7280', fontSize: 14, width: 80 }}>École:</Text>
+        <Text style={{ color: '#374151', fontSize: 14, flex: 1 }}>{opinion.schoolOfThought}</Text>
       </View>
-      <View className="flex-row">
-        <Text className="text-gray-500 text-sm w-20">Généalogie:</Text>
-        <Text className="text-gray-700 text-sm flex-1">{opinion.genealogy}</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ color: '#6b7280', fontSize: 14, width: 80 }}>Généalogie:</Text>
+        <Text style={{ color: '#374151', fontSize: 14, flex: 1 }}>{opinion.genealogy}</Text>
       </View>
     </View>
   </View>
@@ -35,41 +43,57 @@ export default function TopicDetail() {
 
   if (!topic) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-xl">Topic non trouvé</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ fontSize: 20 }}>Topic non trouvé</Text>
       </View>
     );
   }
 
   return (
-    <View className="flex-1">
-      <ScrollView>
-        <Image source={{ uri: topic.imageUrl }} className="w-full h-48" resizeMode="cover" />
+    <View style={{ flex: 1, backgroundColor: '#f9fafb' }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Image
+          source={{ uri: topic.imageUrl }}
+          style={{ width: '100%', height: 192 }}
+          resizeMode="cover"
+        />
 
-        <View className="p-4">
-          <Text className="text-2xl font-bold mb-2">{topic.title}</Text>
-          <Text className="text-gray-600 mb-4">{topic.description}</Text>
+        <View style={{ padding: 16 }}>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 8 }}>{topic.title}</Text>
+          <Text style={{ color: '#6b7280', marginBottom: 16 }}>{topic.description}</Text>
 
-          <View className="flex-row flex-wrap mb-4">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 16 }}>
             {topic.tags.map((tag) => (
               <View
                 key={tag.id}
-                className="px-3 py-1 rounded-full mr-2 mb-2"
-                style={{ backgroundColor: tag.color + '20' }}>
-                <Text className="text-sm font-medium" style={{ color: tag.color }}>
+                style={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 4,
+                  borderRadius: 16,
+                  marginRight: 8,
+                  marginBottom: 8,
+                  backgroundColor: tag.color + '20',
+                }}>
+                <Text style={{ fontSize: 14, fontWeight: '500', color: tag.color }}>
                   {tag.name}
                 </Text>
               </View>
             ))}
           </View>
 
-          <View className="flex-row justify-between items-center mb-6">
-            <Text className="text-gray-500">{topic.date}</Text>
-            <Text className="text-gray-500">{topic.views} vues</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 24,
+            }}>
+            <Text style={{ color: '#6b7280' }}>{topic.date}</Text>
+            <Text style={{ color: '#6b7280' }}>{topic.views} vues</Text>
           </View>
 
-          <View className="mb-4">
-            <Text className="text-xl font-bold mb-4">Opinions</Text>
+          <View style={{ marginBottom: 16 }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Opinions</Text>
             {topic.opinions.map((opinion) => (
               <OpinionCard key={opinion.id} opinion={opinion} />
             ))}
