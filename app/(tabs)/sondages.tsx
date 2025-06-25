@@ -27,19 +27,17 @@ export default function Sondages() {
   ];
 
   return (
-    <View className="flex-1 bg-gray-100">
-      <View className="pt-12 pb-4 px-4 bg-white">
+    <View className="flex-1 bg-gray-50">
+      <View className="pb-4 px-4 bg-white">
         <Text className="text-2xl font-bold">Sondages</Text>
         <Text className="text-gray-600 mt-1">Participez aux débats</Text>
       </View>
 
-      <ScrollView className="flex-1 px-4">
+      <ScrollView className="flex-1 px-4 mt-2">
         {sondages.map((sondage) => (
           <TouchableOpacity
             key={sondage.id}
-            className={`bg-white rounded-lg shadow-md p-4 mb-4 ${
-              sondage.active ? 'border-l-4 border-blue-500' : 'opacity-60'
-            }`}>
+            className={`bg-white rounded-lg p-4 mb-2 ${sondage.active ? '' : 'opacity-60'}`}>
             <View className="flex-row justify-between items-start mb-2">
               <Text className="text-lg font-semibold flex-1 mr-2">{sondage.question}</Text>
               {sondage.active && (

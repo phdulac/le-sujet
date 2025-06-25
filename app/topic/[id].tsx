@@ -4,7 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { topics, Topic, Opinion } from '../../data/topics';
 
 const OpinionCard = ({ opinion }: { opinion: Opinion }) => (
-  <View className="bg-white rounded-lg shadow-md p-4 mb-4">
+  <View className="bg-white rounded-lg p-4 mb-4">
     <Text className="text-lg font-semibold mb-2">{opinion.title}</Text>
     <Text className="text-gray-600 mb-3">{opinion.description}</Text>
 
@@ -42,7 +42,7 @@ export default function TopicDetail() {
   }
 
   return (
-    <View className="flex-1 bg-gray-100">
+    <View className="flex-1">
       <ScrollView>
         <Image source={{ uri: topic.imageUrl }} className="w-full h-48" resizeMode="cover" />
 

@@ -47,7 +47,7 @@ const FavoriCard = ({ topic }: { topic: Topic }) => (
 export default function Favoris() {
   return (
     <View className="flex-1 bg-gray-100">
-      <View className="pt-12 pb-4 px-4 bg-white">
+      <View className="pb-4 px-4 bg-white">
         <Text className="text-2xl font-bold">Mes Favoris</Text>
         <Text className="text-gray-600 mt-1">
           {favoris.length} article{favoris.length > 1 ? 's' : ''} sauvegardé
