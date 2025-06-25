@@ -20,24 +20,23 @@ function Layout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-        }}
-      >
-        <Stack.Screen 
-          name="index" 
-          options={{ 
-            headerShown: false 
-          }} 
+        }}>
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
         />
-        <Stack.Screen 
-          name="[id]" 
-          options={({ route }: { route: RouteProp<any, string> }) => ({ 
+        <Stack.Screen
+          name="topic/[id]"
+          options={({ route }: { route: RouteProp<any, string> }) => ({
             title: (route.params as any)?.title || 'Détails',
-            headerBackTitle: 'Retour'
-          })} 
+            headerBackTitle: 'Retour',
+          })}
         />
       </Stack>
     </>
   );
 }
 
-export default withExpoSnack(Layout); 
+export default withExpoSnack(Layout);

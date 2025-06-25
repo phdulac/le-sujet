@@ -1,19 +1,14 @@
 import React from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Link } from 'expo-router';
-import { topics, Topic, Tag } from '../data/topics';
+import { topics, Topic, Tag } from '../../data/topics';
 
 const TopicCard = ({ topic }: { topic: Topic }) => (
-  <Link href={`/${topic.id}?title=${encodeURIComponent(topic.title)}`} asChild>
-    <TouchableOpacity 
+  <Link href={`/topic/${topic.id}?title=${encodeURIComponent(topic.title)}`} asChild>
+    <TouchableOpacity
       className="bg-white rounded-lg shadow-md overflow-hidden mb-4"
-      style={{ width: (Dimensions.get('window').width - 48) / 2 }}
-    >
-      <Image
-        source={{ uri: topic.imageUrl }}
-        className="w-full h-32"
-        resizeMode="cover"
-      />
+      style={{ width: (Dimensions.get('window').width - 48) / 2 }}>
+      <Image source={{ uri: topic.imageUrl }} className="w-full h-32" resizeMode="cover" />
       <View className="p-3">
         <Text className="text-lg font-bold mb-1">{topic.title}</Text>
         <Text className="text-gray-600 text-sm" numberOfLines={2}>
@@ -21,15 +16,11 @@ const TopicCard = ({ topic }: { topic: Topic }) => (
         </Text>
         <View className="flex-row flex-wrap mt-2">
           {topic.tags.map((tag: Tag) => (
-            <View 
+            <View
               key={tag.id}
               className="px-2 py-1 rounded-full mr-1 mb-1"
-              style={{ backgroundColor: tag.color + '20' }}
-            >
-              <Text 
-                className="text-xs"
-                style={{ color: tag.color }}
-              >
+              style={{ backgroundColor: tag.color + '20' }}>
+              <Text className="text-xs" style={{ color: tag.color }}>
                 {tag.name}
               </Text>
             </View>
@@ -59,4 +50,4 @@ export default function Home() {
       </ScrollView>
     </View>
   );
-} 
+}
